@@ -1,9 +1,12 @@
-export default function App() {
+import React from "react";
+import Greeting from "./components/Greeting";
+
+const App: React.FC = () => {
   return (
     <main>
-      <h1 className="w-fit rounded bg-slate-500 p-2 text-2xl text-pink-300">
-        Hello, Vite + React + TypeScript!
-      </h1>
+      <Greeting />
     </main>
   );
-}
+};
+
+export default App;
