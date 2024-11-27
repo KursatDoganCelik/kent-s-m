@@ -1,5 +1,5 @@
 export interface Product {
-  id: number;
+  id: string;
   name: string;
   description: string;
   brand: string;
@@ -8,8 +8,4 @@ export interface Product {
   imageUrl: string;
   stockQuantity: number;
   isActive: boolean;
-}
-
-export interface CardsProps {
-  products: Product[];
 }
