@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Product } from "../types";
-import Cards from "../components/Cards";
+import ProductCard from "../components/ProductCard";
+import { Link } from "react-router-dom";
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -52,7 +53,13 @@ const Products: React.FC = () => {
   return (
     <div className="App">
       <h1 className="my-6 text-center text-3xl font-bold">Products</h1>
-      <Cards products={products} />
+      <div className="grid grid-cols-1 gap-12 px-12 py-4 sm:grid-cols-2 lg:grid-cols-3">
+        {products.map((product) => (
+          <Link key={product.id} to={`/products/${product.id}`}>
+            <ProductCard product={product} />
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

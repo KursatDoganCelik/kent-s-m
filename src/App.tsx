@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Products from "./pages/Products";
 import Greetings from "./components/Greetings";
+import ProductDetail from "./components/ProductDetail";
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Greetings />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
     </Router>
   );
