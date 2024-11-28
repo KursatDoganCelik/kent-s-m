@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Product } from "../types";
 
@@ -18,6 +18,7 @@ const ProductDetail: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductByID = async () => {
@@ -37,6 +38,18 @@ const ProductDetail: React.FC = () => {
     };
     fetchProductByID();
   }, []);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_MOCK_API_BASE_URL}/products/${product.id}`,
+      );
+      alert("Product deleted successfully!");
+      navigate("/products");
+    } catch (err: any) {
+      alert(err.response?.data?.message || "Failed to delete the product.");
+    }
+  };
 
   if (loading) {
     return (
@@ -107,6 +120,12 @@ const ProductDetail: React.FC = () => {
         >
           {product.isActive ? "Active" : "Inactive"}
         </li>
+        <button
+          className="mt-4 rounded-md bg-red-500 px-2 py-1 text-gray-300 hover:bg-red-600 hover:text-white"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
       </ul>
     </div>
   );
