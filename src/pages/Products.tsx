@@ -54,9 +54,9 @@ const Products: React.FC = () => {
   }
 
   return (
-    <div className="App">
-      <h1 className="my-6 text-center text-3xl font-bold">Products</h1>
-      <div className="flex flex-col items-center justify-center bg-gray-100">
+    <div>
+      <div className="mt-4 flex justify-between px-16">
+        <h1 className="my-2 text-center text-3xl font-bold">Products</h1>
         <button
           onClick={() => setIsPopupOpen(true)}
           className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
