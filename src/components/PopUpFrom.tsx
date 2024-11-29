@@ -35,6 +35,7 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const randomImgUrl = `https://picsum.photos/id/${Math.floor(Math.random() * 100) + 10}/300/200`;
     const formattedDate = new Date()
       .toISOString()
       .split("T")[0]
@@ -44,7 +45,10 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
     try {
       await axios.post(`${import.meta.env.VITE_MOCK_API_BASE_URL}/products`, {
         ...formData,
+        imageUrl: formData.imageUrl || randomImgUrl,
+        stockQuantity: formData.stockQuantity || 0,
         createdAt: formattedDate,
+        isActive: formData.stockQuantity && formData.stockQuantity > 0,
       });
       onSuccess();
       onClose();
@@ -111,7 +115,6 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
               value={formData.imageUrl}
               onChange={handleChange}
               className="w-full rounded border px-4 py-2"
-              required
             />
           </div>
           <div className="mb-4">
@@ -124,18 +127,7 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
               value={formData.stockQuantity || ""}
               onChange={handleChange}
               className="rm-arrow w-full rounded border px-4 py-2"
-              required
             />
-          </div>
-          <div className="mb-4 flex items-center">
-            <input
-              type="checkbox"
-              name="isActive"
-              checked={formData.isActive}
-              onChange={handleChange}
-              className="mr-2 h-4 w-4 cursor-pointer rounded border-gray-300"
-            />
-            <label className="text-sm font-medium">Is Active</label>
           </div>
           <div className="flex justify-end space-x-2">
             <button
