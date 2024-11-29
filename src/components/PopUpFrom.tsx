@@ -22,14 +22,22 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
   ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
-    setFormData({
-      ...formData,
-      [name]:
-        type === "checkbox"
-          ? checked
-          : type === "number"
-            ? parseFloat(value)
-            : value,
+    const updatedValue =
+      type === "checkbox"
+        ? checked
+        : type === "number"
+          ? parseFloat(value)
+          : value;
+
+    setFormData((prevData) => {
+      const updatedData = {
+        ...prevData,
+        [name]: updatedValue,
+      };
+      if (name === "stockQuantity" && (updatedValue as number) > 0) {
+        updatedData.isActive = true;
+      }
+      return updatedData;
     });
   };
 
@@ -128,6 +136,16 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
               onChange={handleChange}
               className="rm-arrow w-full rounded border px-4 py-2"
             />
+          </div>
+          <div className="mb-4 flex items-center">
+            <input
+              type="checkbox"
+              name="isActive"
+              checked={formData.isActive}
+              onChange={handleChange}
+              className="mr-2 h-4 w-4 cursor-pointer rounded border-gray-300"
+            />
+            <label className="text-sm font-medium">Is Active</label>
           </div>
           <div className="flex justify-end space-x-2">
             <button
