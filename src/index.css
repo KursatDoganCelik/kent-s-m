@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.rm-arrow {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.rm-arrow::-ms-expand {
+  display: none;
+}
+.rm-arrow::-webkit-inner-spin-button,
+.rm-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

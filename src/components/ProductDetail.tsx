@@ -44,7 +44,6 @@ const ProductDetail: React.FC = () => {
       await axios.delete(
         `${import.meta.env.VITE_MOCK_API_BASE_URL}/products/${product.id}`,
       );
-      alert("Product deleted successfully!");
       navigate("/products");
     } catch (err: any) {
       alert(err.response?.data?.message || "Failed to delete the product.");
@@ -111,7 +110,15 @@ const ProductDetail: React.FC = () => {
         </li>
         <li className="flex items-center">
           <span className="mr-2 font-medium text-gray-600">Created Date:</span>
-          <span className="text-sm text-gray-500">{product.createdAt}</span>
+          <span className="text-sm text-gray-500">
+            {new Date(
+              product.createdAt.split("-").reverse().join("-"),
+            ).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
+          </span>
         </li>
         <li
           className={`text-sm font-medium ${
