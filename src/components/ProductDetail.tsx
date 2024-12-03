@@ -20,22 +20,23 @@ const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
+  const fetchProductByID = async () => {
+    try {
+      const response = await axios.get<Product>(
+        `${import.meta.env.VITE_MOCK_API_BASE_URL}/products/${id}`,
+      );
+      setProduct(response.data);
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message ||
+          "Something went wrong. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchProductByID = async () => {
-      try {
-        const response = await axios.get<Product>(
-          `${import.meta.env.VITE_MOCK_API_BASE_URL}/products/${id}`,
-        );
-        setProduct(response.data);
-      } catch (err: any) {
-        setError(
-          err.response?.data?.message ||
-            "Something went wrong. Please try again.",
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProductByID();
   }, []);
 
@@ -69,6 +70,7 @@ const ProductDetail: React.FC = () => {
       alert(err.response?.data?.message || "Failed to update the product.");
     }
   };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const parsedValue =
@@ -149,7 +151,7 @@ const ProductDetail: React.FC = () => {
             <input
               type="number"
               name="price"
-              value={product.price}
+              value={product.price || ""}
               onChange={handleInputChange}
               placeholder="Price"
               className="rm-arrow w-1/3 rounded-md border px-2 py-1"
@@ -162,7 +164,7 @@ const ProductDetail: React.FC = () => {
             <input
               type="number"
               name="stockQuantity"
-              value={product.stockQuantity}
+              value={product.stockQuantity || ""}
               onChange={handleInputChange}
               placeholder="Stock Quantity"
               className="rm-arrow w-1/3 rounded-md border px-2 py-1"
@@ -180,10 +182,16 @@ const ProductDetail: React.FC = () => {
             />
           </div>
           <button
-            className="mt-4 rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600"
+            className="mr-2 mt-4 rounded-md bg-green-500 px-2 py-1 text-white hover:bg-green-600"
             onClick={handleUpdate}
           >
             Save Changes
+          </button>
+          <button
+            className="mr-2 mt-4 rounded-md bg-gray-500 px-2 py-1 text-white hover:bg-gray-600"
+            onClick={() => (setEditMode(false), fetchProductByID())}
+          >
+            Cancel
           </button>
         </div>
       ) : (
