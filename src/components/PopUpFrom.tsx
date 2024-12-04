@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import useAxios from "../hooks/useAxios";
 
 const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
   onClose,
   onSuccess,
 }) => {
+  const { post } = useAxios();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -50,18 +51,21 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
       .split("-")
       .reverse()
       .join("-");
+
+    const payload = {
+      ...formData,
+      imageUrl: formData.imageUrl || placeHolderImg,
+      stockQuantity: formData.stockQuantity || 0,
+      createdAt: formattedDate,
+      isActive: formData.stockQuantity && formData.stockQuantity > 0,
+    };
+
     try {
-      await axios.post(`${import.meta.env.VITE_MOCK_API_BASE_URL}/products`, {
-        ...formData,
-        imageUrl: formData.imageUrl || placeHolderImg,
-        stockQuantity: formData.stockQuantity || 0,
-        createdAt: formattedDate,
-        isActive: formData.stockQuantity && formData.stockQuantity > 0,
-      });
+      await post(`/products`, payload);
       onSuccess();
       onClose();
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Failed to submit product.");
+    } catch {
+      alert("Failed to submit product.");
     }
   };
 

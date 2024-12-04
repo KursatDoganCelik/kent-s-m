@@ -1,9 +1,8 @@
-import React from "react";
 import { Product } from "../types";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   return (
-    <div className="rounded-lg border border-gray-200 p-6 shadow-lg hover:shadow-xl">
+    <div className="rounded-lg border border-gray-200 bg-gray-100 p-6 shadow-lg hover:shadow-xl">
       <img
         src={product.imageUrl}
         alt={product.name}

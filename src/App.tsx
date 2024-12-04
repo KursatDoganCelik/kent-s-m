@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
@@ -10,7 +9,7 @@ const App: React.FC = () => {
     <Router>
       <div className="flex h-screen">
         <Sidebar />
-        <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
+        <main className="flex-1 overflow-y-auto bg-gray-200 p-6">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
