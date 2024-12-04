@@ -1,33 +1,23 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import Products from "./pages/Products";
-import Greetings from "./components/Greetings";
-import ProductDetail from "./components/ProductDetail";
+import ProductDetail from "./pages/ProductDetail";
+import Sidebar from "./components/Sidebar";
 
 const App: React.FC = () => {
   return (
     <Router>
-      <nav className="bg-gray-500 p-4">
-        <ul className="flex space-x-4">
-          <Link
-            to="/"
-            className="text-gray-300 transition duration-200 hover:text-white"
-          >
-            Home
-          </Link>
-          <Link
-            to="/products"
-            className="text-gray-300 transition duration-200 hover:text-white"
-          >
-            Products
-          </Link>
-        </ul>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Greetings />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-      </Routes>
+      <div className="flex h-screen">
+        <Sidebar />
+        <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+          </Routes>
+        </main>
+      </div>
     </Router>
   );
 };
