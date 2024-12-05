@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronLeft, Home, ShoppingBag } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+import { asideLinks } from "../config/constans/asideLinks";
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -41,28 +42,19 @@ const Sidebar: React.FC = () => {
 
         <h2 className="mb-6 text-xl font-bold">Sidebar</h2>
         <ul className="space-y-4">
-          <li>
-            <Link
-              to="/"
-              className={`flex items-center rounded p-2 text-lg transition duration-200 hover:bg-slate-700 ${
-                location.pathname === "/" ? "bg-slate-700" : ""
-              }`}
-            >
-              <Home size={20} className="mr-2" />
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/products"
-              className={`flex items-center rounded p-2 text-lg transition duration-200 hover:bg-slate-700 ${
-                location.pathname === "/products" ? "bg-slate-700" : ""
-              }`}
-            >
-              <ShoppingBag size={20} className="mr-2" />
-              Products
-            </Link>
-          </li>
+          {asideLinks.map((link, index) => (
+            <li key={index}>
+              <Link
+                to={link.to}
+                className={`flex items-center rounded p-2 text-lg transition duration-200 hover:bg-slate-700 ${
+                  location.pathname === link.to ? "bg-slate-700" : ""
+                }`}
+              >
+                <link.icon size={20} className="mr-2" />
+                {link.text}
+              </Link>
+            </li>
+          ))}
         </ul>
       </aside>
     </div>

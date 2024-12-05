@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAxios from "../hooks/useAxios";
+import useAxios from "../../hooks/useAxios";
 
 const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
   onClose,
@@ -44,7 +44,8 @@ const PopupForm: React.FC<{ onClose: () => void; onSuccess: () => void }> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const placeHolderImg = "https://placehold.co/300x200?text=Placehold";
+    const placeHolderImg =
+      "https://placehold.co/300x200/475569/white?text=Placeholder";
     const formattedDate = new Date()
       .toISOString()
       .split("T")[0]

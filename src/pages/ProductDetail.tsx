@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Product } from "../types";
-import ProductDetailEdit from "../components/ProductDetailEdit";
-import ProductDetailView from "../components/ProductDetailView";
+import { Product } from "../config/types";
 import useAxios from "../hooks/useAxios";
 import { Error, Loading } from "../components/LoadingAndError";
+import ProductDetailEdit from "../components/ProductDetail/ProductDetailEdit";
+import ProductDetailView from "../components/ProductDetail/ProductDetailView";
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product>({

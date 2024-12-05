@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Product } from "../types";
-import ProductCard from "../components/ProductCard";
-import PopupForm from "../components/PopUpFrom";
+import { Product } from "../config/types";
+import ProductCard from "../components/Product/ProductCard";
+import PopupForm from "../components/Product/PopUpFrom";
 import useAxios from "../hooks/useAxios";
 import { Error, Loading } from "../components/LoadingAndError";
 

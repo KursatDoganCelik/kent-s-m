@@ -1,4 +1,4 @@
-import { Product } from "../types";
+import { Product } from "../../config/types";
 
 type ProductDetailEditProps = {
   product: Product;
